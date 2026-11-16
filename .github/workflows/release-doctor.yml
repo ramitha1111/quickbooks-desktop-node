@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "release-doctor.yml"
+# Estimated savings: ~2 min/run
+#
 name: Release Doctor
 on:
   pull_request:
@@ -5,6 +10,10 @@ on:
       - main
   workflow_dispatch:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   release_doctor:
     name: release doctor
